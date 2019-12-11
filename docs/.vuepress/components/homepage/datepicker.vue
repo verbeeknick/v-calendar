@@ -12,7 +12,7 @@
       </div>
       <p class="text-lg font-medium text-gray-600 mb-2">Date Ranges</p>
       <div class="flex flex-col items-center mb-6">
-        <v-date-picker mode="range" v-model="range" is-inline />
+        <v-date-picker mode="range" v-model="range" :disabled-dates="disabledDates" is-inline />
       </div>
       <p class="text-lg font-medium text-gray-600">Popover Mode</p>
       <div class="example-home mt-0">
@@ -38,43 +38,43 @@
 </template>
 
 <script>
-const { pageForThisMonth } = require('@/utils/helpers');
-let { month: thisMonth, year: thisMonthYear } = pageForThisMonth();
-thisMonth--;
+  const { pageForThisMonth } = require('@/utils/helpers');
+  let { month: thisMonth, year: thisMonthYear } = pageForThisMonth();
+  thisMonth--;
 
-export default {
-  data() {
-    return {
-      labelClass: 'block text-gray-700 text-sm text-left font-bold mb-2',
-      inputLabel: 'Select Range',
-      date: new Date(),
-      dates: [
-        new Date(thisMonthYear, thisMonth, 3),
-        new Date(thisMonthYear, thisMonth, 15),
-        new Date(thisMonthYear, thisMonth, 25),
-      ],
-      range: {
-        start: new Date(thisMonthYear, thisMonth, 6),
-        end: new Date(thisMonthYear, thisMonth, 23),
+  export default {
+    data() {
+      return {
+        labelClass: 'block text-gray-700 text-sm text-left font-bold mb-2',
+        inputLabel: 'Select Range',
+        date: new Date(),
+        dates: [
+          new Date(thisMonthYear, thisMonth, 3),
+          new Date(thisMonthYear, thisMonth, 15),
+          new Date(thisMonthYear, thisMonth, 25),
+        ],
+        range: {
+          start: new Date(thisMonthYear, thisMonth, 6),
+          end: new Date(thisMonthYear, thisMonth, 23),
+        },
+        range2: {
+          start: new Date(thisMonthYear, thisMonth, 6),
+          end: new Date(thisMonthYear, thisMonth, 23),
+        },
+        disabledDates: ['2019-12-05', '2019-12-06','2019-12-07',],
+      };
+    },
+    methods: {
+      disableWeekends() {
+        this.disabledDates = { weekdays: [1, 7] };
       },
-      range2: {
-        start: new Date(thisMonthYear, thisMonth, 6),
-        end: new Date(thisMonthYear, thisMonth, 23),
+      disableDays() {
+        this.disabledDates = { days: [1, 15] };
       },
-      disabledDates: null,
-    };
-  },
-  methods: {
-    disableWeekends() {
-      this.disabledDates = { weekdays: [1, 7] };
+      disableOrdinalWeekdays() {
+        this.disabledDates = { ordinalWeekdays: { [-1]: 7 } };
+      },
     },
-    disableDays() {
-      this.disabledDates = { days: [1, 15] };
-    },
-    disableOrdinalWeekdays() {
-      this.disabledDates = { ordinalWeekdays: { [-1]: 7 } };
-    },
-  },
-};
+  };
 </script>
 

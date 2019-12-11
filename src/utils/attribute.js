@@ -84,6 +84,19 @@ export default class Attribute {
   }
 
   // Accepts: Date or date range object
+  // Returns: First date that partially intersects the given date
+  intersectsDateRangeWithGap(date) {
+    if (date.start && date.end) {
+      const startIncluded = !!this.dates.find(d => d.includesDate(date.start));
+      const endIncluded = !!this.dates.find(d => d.includesDate(date.end));
+
+      return (!this.excludesDate(date) && !startIncluded && !endIncluded);
+    }
+
+    return true;
+  }
+
+  // Accepts: Date or date range object
   // Returns: First date that completely includes the given date
   includesDate(date) {
     date = date instanceof DateInfo ? date : new DateInfo(date, this.dateOpts);
