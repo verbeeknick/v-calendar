@@ -277,7 +277,7 @@ export default {
     },
     dateIsValid(date) {
       const disabledAttribute = this.$refs.calendar.disabledAttribute;
-      return !!disabledAttribute && !disabledAttribute.intersectsDate(date);
+      return !!disabledAttribute && disabledAttribute.intersectsDateRangeWithGap(date);
     },
     onDocumentKeyDown(e) {
       // Clear drag on escape keydown
