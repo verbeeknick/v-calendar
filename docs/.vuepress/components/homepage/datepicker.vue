@@ -26,6 +26,8 @@
               <v-date-picker
                 mode="range"
                 v-model="range2"
+                :update-on-input="true"
+                @drag="handleRange2Drag"
                 :input-props="{ id: 'birthdate' }"
                 :disabled-dates="disabledDates"
               />
@@ -57,12 +59,21 @@
           start: new Date(thisMonthYear, thisMonth, 6),
           end: new Date(thisMonthYear, thisMonth, 23),
         },
+        range2Dragging: false,
         range2: {
-          start: new Date(thisMonthYear, thisMonth, 6),
-          end: new Date(thisMonthYear, thisMonth, 23),
+          start: new Date(2020, 11, 10),
+          end: new Date(2020, 11, 20),
         },
-        disabledDates: ['2019-12-05', '2019-12-06','2019-12-07',],
       };
+    },
+    computed: {
+      disabledDates() {
+        if (this.range2Dragging) {
+          return ['2020-11-10', '2020-11-11','2020-11-12'];
+        }
+
+        return ['2020-11-11','2020-11-12'];
+      }
     },
     methods: {
       disableWeekends() {
@@ -74,6 +85,13 @@
       disableOrdinalWeekdays() {
         this.disabledDates = { ordinalWeekdays: { [-1]: 7 } };
       },
+      handleRange2Drag(event) {
+        if (event) {
+          this.range2Dragging = true;
+        } else {
+          this.range2Dragging = false;
+        }
+      }
     },
   };
 </script>
