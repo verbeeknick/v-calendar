@@ -4,7 +4,6 @@ const purgecss = require('@fullhuman/postcss-purgecss');
 
 module.exports = {
   plugins: [
-    postcssPresetEnv(),
     tailwindcss('./tailwind.config.js'),
     require('autoprefixer')({ grid: true }),
     process.env.NODE_ENV === 'production'
