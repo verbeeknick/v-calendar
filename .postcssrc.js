@@ -4,8 +4,14 @@ const purgecss = require('@fullhuman/postcss-purgecss');
 
 module.exports = {
   plugins: [
+    postcssPresetEnv({
+      stage: 2,
+      features: {
+        'nesting-rules': true,
+      },
+    }),
     tailwindcss('./tailwind.config.js'),
-    require('autoprefixer')({ grid: true }),
+    require('autoprefixer'),
     process.env.NODE_ENV === 'production'
       ? purgecss({
           content: ['./src/**/*.vue', './src/**/*.js'],
