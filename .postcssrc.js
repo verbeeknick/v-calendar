@@ -11,7 +11,7 @@ module.exports = {
       },
     }),
     tailwindcss('./tailwind.config.js'),
-    require('autoprefixer'),
+    require('autoprefixer')({ grid: true }),
     process.env.NODE_ENV === 'production'
       ? purgecss({
           content: ['./src/**/*.vue', './src/**/*.js'],
